@@ -113,9 +113,8 @@ def default_Brain_loader(img_path, mask_path):
     img, mask = randomHorizontalFlip(img, mask)
     img, mask = randomVerticleFlip(img, mask)
     img, mask = randomRotate90(img, mask)
-    print(np.array(img).shape, np.array(mask).shape)
-
-
+    img = np.expand_dims(img, axis=2)
+    mask = np.expand_dims(mask, axis=2)
     #print(np.min(img), np.max(img))
     #img = np.array(img, np.float32).transpose(2, 0, 1) / 255.0 * 3.2 - 1.6
     img = np.array(img, np.float32).transpose(2, 0, 1) / 255.0 * 2.0 -1.0
