@@ -103,10 +103,10 @@ def default_Brain_loader(img_path, mask_path):
 
 
     
-    img = randomHueSaturationValue(img,
-                                   hue_shift_limit=(-30, 30),
-                                   sat_shift_limit=(-5, 5),
-                                   val_shift_limit=(-15, 15))
+#     img = randomHueSaturationValue(img,
+#                                    hue_shift_limit=(-30, 30),
+#                                    sat_shift_limit=(-5, 5),
+#                                    val_shift_limit=(-15, 15))
 
     img, mask = randomShiftScaleRotate(img, mask,
                                        shift_limit=(-0.1, 0.1),
