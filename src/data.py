@@ -98,23 +98,31 @@ def default_Brain_loader(img_path, mask_path):
     Mask = Image.open(mask_path)
     Mask1 = Mask.resize((256, 256), Image.ANTIALIAS).convert('L')
     mask = np.array(Mask1)
+
     img = np.expand_dims(img, axis=2)
-    
-#     img = randomHueSaturationValue(img,
-#                                    hue_shift_limit=(-30, 30),
-#                                    sat_shift_limit=(-5, 5),
-#                                    val_shift_limit=(-15, 15))
+
+
+
+
+    # img = randomHueSaturationValue(img,
+    #                                hue_shift_limit=(-30, 30),
+    #                                sat_shift_limit=(-5, 5),
+    #                                val_shift_limit=(-15, 15))
 
     img, mask = randomShiftScaleRotate(img, mask,
                                        shift_limit=(-0.1, 0.1),
                                        scale_limit=(-0.1, 0.1),
                                        aspect_limit=(-0.1, 0.1),
                                        rotate_limit=(-0, 0))
+
     img, mask = randomHorizontalFlip(img, mask)
+
     img, mask = randomVerticleFlip(img, mask)
+
     img, mask = randomRotate90(img, mask)
+
     img = np.expand_dims(img, axis=2)
-    mask = np.expand_dims(mask, axis=2)
+
     #print(np.min(img), np.max(img))
     #img = np.array(img, np.float32).transpose(2, 0, 1) / 255.0 * 3.2 - 1.6
     img = np.array(img, np.float32).transpose(2, 0, 1) / 255.0 * 2.0 -1.0
