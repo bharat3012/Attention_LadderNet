@@ -87,7 +87,7 @@ optimizer = optim.Adam(net.parameters(),lr=lr_value[0])
 
 
 ##################################################NEW################################
-dataset = ImageFolder(root_path="../FDRIVE", datasets='Brain',mode ='train')
+dataset = ImageFolder(root_path="../../FDRIVE", datasets='Brain',mode ='train')
 data_loader = torch.utils.data.DataLoader(
     dataset,
     batch_size=40,
@@ -95,7 +95,7 @@ data_loader = torch.utils.data.DataLoader(
     num_workers=4)
 
 
-valid = ImageFolder(root_path="../FDRIVE", datasets='Brain', mode = 'valid')
+valid = ImageFolder(root_path="../../FDRIVE", datasets='Brain', mode = 'valid')
 data_loader_v = torch.utils.data.DataLoader(
     valid,
     batch_size=40,
@@ -163,6 +163,7 @@ def train(epoch):
         accuracy = correct_train / total_train
         train_accuracy += accuracy
         #Metrics
+        print(i, accuracy, jacard.item(), 1-dice_loss.item() )
         i+=1
     DC = 1 -train_dice_loss/len(data_loader_iter)
     total_loss = train_loss/len(data_loader_iter)
