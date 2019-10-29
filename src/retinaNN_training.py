@@ -60,8 +60,8 @@ total_epoch = 100
 val_portion = 0.1
 
 #Define epoch and lr 
-lr_epoch = np.array([20, 40, 60,total_epoch])
-lr_value= np.array([0.1, 0.01,0.001, 0.0001])
+lr_epoch = np.array([5, 20, 40, total_epoch])
+lr_value= np.array([0.1, 0.01, 0.001, 0.0001])
 #Number of layers and filters
 layers = 4
 filters = 16
