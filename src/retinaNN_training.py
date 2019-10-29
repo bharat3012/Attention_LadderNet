@@ -165,6 +165,7 @@ def train(epoch):
         #Metrics
         #print(i, accuracy, jacard.item(), 1-dice_loss.item() )
         i+=1
+    JS = JS/len(data_loader_iter)
     DC = 1 -train_dice_loss/len(data_loader_iter)
     total_loss = train_loss/len(data_loader_iter)
     TA = train_accuracy/len(data_loader_iter)
@@ -204,8 +205,7 @@ def test(epoch, display=False):
 
             accuracy = correct_train / total_train
             valid_accuracy += accuracy
-            #Metrics
-            i+=1
+        JS = JS/len(data_loader_iter)
         DC = 1 -test_dice_loss/len(data_loader_iter)
         total_loss = test_loss/len(data_loader_iter)
         TA = valid_accuracy/len(data_loader_iter)
