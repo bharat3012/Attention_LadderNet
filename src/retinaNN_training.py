@@ -209,7 +209,7 @@ def test(epoch, display=False):
         DC = 1 -test_dice_loss/len(data_loader_iter_v)
         test_loss = test_loss/len(data_loader_iter_v)
         TA = valid_accuracy/len(data_loader_iter_v)
-        writer.add_scalar('Valid Loss', total_loss, epoch)
+        writer.add_scalar('Valid Loss', test_loss, epoch)
         writer.add_scalar('Valid Dice Coefficient', DC, epoch)
         writer.add_scalar('Valid Jacard Similarity', JS, epoch)
         writer.add_scalar('Valid Accuracy', TA, epoch)
