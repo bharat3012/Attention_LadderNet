@@ -205,15 +205,15 @@ def test(epoch, display=False):
 
             accuracy = correct_train / total_train
             valid_accuracy += accuracy
-        JS = JS/len(data_loader_iter)
-        DC = 1 -test_dice_loss/len(data_loader_iter)
-        total_loss = test_loss/len(data_loader_iter)
-        TA = valid_accuracy/len(data_loader_iter)
+        JS = JS/len(data_loader_iter_v)
+        DC = 1 -test_dice_loss/len(data_loader_iter_v)
+        test_loss = test_loss/len(data_loader_iter_v)
+        TA = valid_accuracy/len(data_loader_iter_v)
         writer.add_scalar('Valid Loss', total_loss, epoch)
         writer.add_scalar('Valid Dice Coefficient', DC, epoch)
         writer.add_scalar('Valid Jacard Similarity', JS, epoch)
         writer.add_scalar('Valid Accuracy', TA, epoch)
-        print("Epoch %d: Valid loss %4f Valid dice_coeff %4f Valid Accuracy %4f  Valid Jacard_sim %4f \n" % (epoch, total_loss, DC, TA, JS ))
+        print("Epoch %d: Valid loss %4f Valid dice_coeff %4f Valid Accuracy %4f  Valid Jacard_sim %4f \n" % (epoch, test_loss, DC, TA, JS ))
     # Save checkpoint.
     if test_loss < best_loss:
         print('Saving..')
