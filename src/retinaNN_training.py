@@ -64,7 +64,7 @@ lr_epoch = np.array([5, 20, 40, total_epoch])
 lr_value= np.array([0.1, 0.01, 0.001, 0.0001])
 #Number of layers and filters
 layers = 4
-filters = 16
+filters = 10
 input_channel = 1
 
 from LadderNetv65 import LadderNetv6
