@@ -121,11 +121,13 @@ def default_Brain_loader(img_path, mask_path):
 
     img, mask = randomRotate90(img, mask)
 
-    img = np.expand_dims(img, axis=2)
-    print(img.shape, mask.shape)
+    if len(img.shape)==2:
+        img = np.expand_dims(img, axis=2)
+    
 
     #print(np.min(img), np.max(img))
     #img = np.array(img, np.float32).transpose(2, 0, 1) / 255.0 * 3.2 - 1.6
+
     img = np.array(img, np.float32).transpose(2, 0, 1) / 255.0 * 2.0 -1.0
     #mask = np.array(mask, np.float32).transpose(2, 0, 1) / 255.0
     mask = np.array(mask, np.float32) / 255.0
