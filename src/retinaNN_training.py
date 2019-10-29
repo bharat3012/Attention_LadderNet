@@ -64,7 +64,7 @@ lr_epoch = np.array([20, 40, 60,total_epoch])
 lr_value= np.array([0.1, 0.01,0.001, 0.0001])
 #Number of layers and filters
 layers = 4
-filters = 10
+filters = 16
 input_channel = 1
 
 from LadderNetv65 import LadderNetv6
@@ -90,7 +90,7 @@ optimizer = optim.Adam(net.parameters(),lr=lr_value[0])
 dataset = ImageFolder(root_path="../../FDRIVE", datasets='Brain',mode ='train')
 data_loader = torch.utils.data.DataLoader(
     dataset,
-    batch_size=40,
+    batch_size=50,
     shuffle=True,
     num_workers=4)
 
@@ -98,7 +98,7 @@ data_loader = torch.utils.data.DataLoader(
 valid = ImageFolder(root_path="../../FDRIVE", datasets='Brain', mode = 'valid')
 data_loader_v = torch.utils.data.DataLoader(
     valid,
-    batch_size=40,
+    batch_size=50,
     shuffle=True,
     num_workers=4)                          
 
@@ -143,7 +143,7 @@ def train(epoch):
     print("Learning rate = %4f\n" % lr)
     i = 0
     for inputs, targets in data_loader_iter:
-        inputs, targets = inputs.to(device), targets.to(device)
+        inputs, targets = inputs.to(device), targets.to(device).long()
         optimizer.zero_grad()
         outputs_logits = net(inputs)
 
@@ -163,7 +163,7 @@ def train(epoch):
         accuracy = correct_train / total_train
         train_accuracy += accuracy
         #Metrics
-        print(i, accuracy, jacard.item(), 1-dice_loss.item() )
+        #print(i, accuracy, jacard.item(), 1-dice_loss.item() )
         i+=1
     DC = 1 -train_dice_loss/len(data_loader_iter)
     total_loss = train_loss/len(data_loader_iter)
@@ -186,7 +186,7 @@ def test(epoch, display=False):
     with torch.no_grad():
 
         for inputs, targets in data_loader_iter_v:
-            inputs, targets = inputs.to(device), targets.to(device)
+            inputs, targets = inputs.to(device), targets.to(device).long()
 
             outputs_logits = net(inputs)
 
