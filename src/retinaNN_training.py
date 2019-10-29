@@ -150,8 +150,8 @@ def train(epoch):
         loss, dice_loss , jacard = criterion(outputs_logits, targets)
         loss.backward()
         optimizer.step()
-
-        train_loss += loss.item()
+        if loss.item()<=1000:
+            train_loss += loss.item()
         train_dice_loss += dice_loss.item()
         JS += jacard.item()
 
