@@ -42,8 +42,8 @@ class BasicBlock(nn.Module):
         out = self.drop(out)
 
         out1 = self.conv1(out)
-        #out1 = self.bn1(out1)
-        out1 = self.relu(out1)
+        out1 = self.bn1(out1)
+        #out1 = self.relu(out1)
 
         out2 = out1 + x
 
@@ -237,6 +237,6 @@ class LadderNetv6(nn.Module):
         #out = self.middle_block(out)
         out = self.final_block(out)
         out = self.final(out)
-        #out = F.relu(out)
+        out = F.relu(out)
         #out2 = F.log_softmax(out,dim=1)
         return out

@@ -19,7 +19,7 @@ from tensorboardX import SummaryWriter
 writer = SummaryWriter()
 #function to obtain data for traininsg/testing (validation)
 #from lib.extract_patches import get_data_training
-
+import random
 import os
 
 from losses import *
@@ -31,6 +31,12 @@ from torch.utils.data import Dataset, DataLoader
 from tqdm import tqdm
 
 import random
+
+if opt.manualSeed is None:
+    opt.manualSeed = random.randint(1, 10000)
+print("Random Seed: ", opt.manualSeed)
+random.seed(opt.manualSeed)
+torch.manual_seed(opt.manualSeed)
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
