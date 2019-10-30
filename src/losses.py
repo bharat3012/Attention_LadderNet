@@ -21,13 +21,13 @@ class LossMulti:
     def __init__(self, jaccard_weight=0, num_classes=2):
 
         #self.nll_loss = nn.CrossEntropyLoss()
-        self.logsoftmax = nn.LogSoftmax()
+        
         self.nll_loss = nn.NLLLoss()
         self.jaccard_weight = jaccard_weight
         self.num_classes = num_classes
 
     def __call__(self, outputs, targets):
-        output = self.logsoftmax(outputs, dim =1)
+        output = F.log_softmax(outputs, dim =1)
         loss = self.nll_loss(output, targets)
 
         eps=1e-7        
