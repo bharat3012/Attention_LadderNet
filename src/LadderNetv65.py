@@ -107,7 +107,7 @@ class Bottleneck(nn.Module):
 
 class Initial_LadderBlock(nn.Module):
 
-    def __init__(self,planes,layers,kernel=3,block=Bottleneck,inplanes = 1):
+    def __init__(self,planes,layers,kernel=3,block=BasicBlock,inplanes = 1):
         super().__init__()
         self.planes = planes
         self.layers = layers
@@ -169,7 +169,7 @@ class Initial_LadderBlock(nn.Module):
 
 class LadderBlock(nn.Module):
 
-    def __init__(self,planes,layers,kernel=3,block=Bottleneck,inplanes = 3):
+    def __init__(self,planes,layers,kernel=3,block=BasicBlock,inplanes = 3):
         super().__init__()
         self.planes = planes
         self.layers = layers
@@ -231,7 +231,7 @@ class LadderBlock(nn.Module):
 
 class Final_LadderBlock(nn.Module):
 
-    def __init__(self,planes,layers,kernel=3,block=Bottleneck,inplanes = 3):
+    def __init__(self,planes,layers,kernel=3,block=BasicBlock,inplanes = 3):
         super().__init__()
         self.block = LadderBlock(planes,layers,kernel=kernel,block=block)
 
