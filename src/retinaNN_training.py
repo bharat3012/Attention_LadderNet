@@ -55,12 +55,12 @@ if not os.path.exists('./logs'):
 device = 'cuda' if torch.cuda.is_available() else 'cpu'
 
 start_epoch = 0  # start from epoch 0 or last checkpoint epoch
-total_epoch = 100
+total_epoch = 250
 
 val_portion = 0.1
 
 #Define epoch and lr 
-lr_epoch = np.array([20, 50, total_epoch])
+lr_epoch = np.array([20, 150, total_epoch])
 lr_value= np.array([0.01, 0.001, 0.0001])
 #Number of layers and filters
 layers = 4
@@ -70,7 +70,7 @@ input_channel = 1
 from LadderNetv65 import LadderNetv6
 
 net = LadderNetv6(num_classes=2,layers=layers,filters=filters,inplanes=input_channel)
-print("Toral number of parameters: "+str(count_parameters(net)))
+print("Total number of parameters: "+str(count_parameters(net)))
 
 check_path = 'LadderNetv65_layer_%d_filter_%d.pt7'% (layers,filters) #'UNet16.pt7'#'UNet_Resnet101.pt7'
 
@@ -90,7 +90,7 @@ optimizer = optim.Adam(net.parameters(),lr=lr_value[0])
 dataset = ImageFolder(root_path="../../FDRIVE", datasets='Brain',mode ='train')
 data_loader = torch.utils.data.DataLoader(
     dataset,
-    batch_size=40,
+    batch_size=70,
     shuffle=True,
     num_workers=4)
 
@@ -98,7 +98,7 @@ data_loader = torch.utils.data.DataLoader(
 valid = ImageFolder(root_path="../../FDRIVE", datasets='Brain', mode = 'valid')
 data_loader_v = torch.utils.data.DataLoader(
     valid,
-    batch_size=40,
+    batch_size=70,
     shuffle=True,
     num_workers=4)                          
 
@@ -115,7 +115,7 @@ for l in range(len(lr_epoch)):
 
 if device == 'cuda':
     net.cuda()
-    net = torch.nn.DataParallel(net, device_ids=range(torch.cuda.device_count()))
+    #net = torch.nn.DataParallel(net, device_ids=range(torch.cuda.device_count()))
     cudnn.benchmark = True
 if resume:
     # Load checkpoint.
@@ -165,6 +165,7 @@ def train(epoch):
         #Metrics
         #print(i, accuracy, jacard.item(), 1-dice_loss.item() )
         i+=1
+
     JS = JS/len(data_loader_iter)
     DC = 1 -train_dice_loss/len(data_loader_iter)
     total_loss = train_loss/len(data_loader_iter)
@@ -224,7 +225,7 @@ def test(epoch, display=False):
         }
         if not os.path.isdir('checkpoint'):
             os.mkdir('checkpoint')
-        torch.save(state, './checkpoint/' + check_path)
+        torch.save(state, './checkpoint/' + str(epoch) + check_path)
         best_loss = test_loss
 
 for epoch in range(start_epoch,total_epoch):

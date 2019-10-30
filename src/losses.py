@@ -20,12 +20,15 @@ def cuda(x):
 class LossMulti:
     def __init__(self, jaccard_weight=0, num_classes=2):
 
-        self.nll_loss = nn.CrossEntropyLoss()
+        #self.nll_loss = nn.CrossEntropyLoss()
+        self.logsoftmax = nn.LogSoftmax()
+        self.nll_loss = nn.NLLLoss()
         self.jaccard_weight = jaccard_weight
         self.num_classes = num_classes
 
     def __call__(self, outputs, targets):
-        loss = self.nll_loss(outputs, targets)
+        output = self.logsoftmax(outputs)
+        loss = self.nll_loss(output, targets)
 
         eps=1e-7        
         num_classes = outputs.shape[1]

@@ -90,7 +90,7 @@ def randomRotate90(image, mask, u=0.5):
 
     return image, mask
 
-def default_Brain_loader(img_path, mask_path):
+def default_Brain_loader(img_path, mask_path, mode):
     image = Image.open(img_path)
     image1 = image.resize((256, 256), Image.ANTIALIAS)
     img = np.array(image1)
@@ -101,28 +101,27 @@ def default_Brain_loader(img_path, mask_path):
 
     img = np.expand_dims(img, axis=2)
 
-
-
-
     # img = randomHueSaturationValue(img,
     #                                hue_shift_limit=(-30, 30),
     #                                sat_shift_limit=(-5, 5),
     #                                val_shift_limit=(-15, 15))
 
-    img, mask = randomShiftScaleRotate(img, mask,
-                                       shift_limit=(-0.1, 0.1),
-                                       scale_limit=(-0.1, 0.1),
-                                       aspect_limit=(-0.1, 0.1),
-                                       rotate_limit=(-0, 0))
+    if mode=='train':
 
-    img, mask = randomHorizontalFlip(img, mask)
+        img, mask = randomShiftScaleRotate(img, mask,
+                                        shift_limit=(-0.1, 0.1),
+                                        scale_limit=(-0.1, 0.1),
+                                        aspect_limit=(-0.1, 0.1),
+                                        rotate_limit=(-0, 0))
 
-    img, mask = randomVerticleFlip(img, mask)
+        img, mask = randomHorizontalFlip(img, mask)
 
-    img, mask = randomRotate90(img, mask)
+        img, mask = randomVerticleFlip(img, mask)
 
-    if len(img.shape)==2:
-        img = np.expand_dims(img, axis=2)
+        img, mask = randomRotate90(img, mask)
+
+        if len(img.shape)==2:
+            img = np.expand_dims(img, axis=2)
     
 
     #print(np.min(img), np.max(img))
@@ -160,8 +159,6 @@ def read_Brain_datasets(root_path, mode):
         images.append(image_path)
         masks.append(label_path)
 
-
-
     return images, masks
 
 class ImageFolder(data.Dataset):
@@ -190,7 +187,7 @@ class ImageFolder(data.Dataset):
 
     def __getitem__(self, index):
 
-        img, mask = default_Brain_loader(self.images[index], self.labels[index])
+        img, mask = default_Brain_loader(self.images[index], self.labels[index], self.mode)
         img = torch.Tensor(img)
         mask = torch.Tensor(mask)
         return img, mask
