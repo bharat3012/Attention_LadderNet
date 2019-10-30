@@ -10,7 +10,7 @@ def conv3x3(in_planes, out_planes, stride=1):
                      padding=1, bias=True)
 
 class SELayer(nn.Module):
-    def __init__(self, channel, reduction=16):
+    def __init__(self, channel, reduction=4):
         super(SELayer, self).__init__()
         self.avg_pool = nn.AdaptiveAvgPool2d(1)
         self.fc = nn.Sequential(
@@ -41,7 +41,7 @@ class BasicBlock(nn.Module):
         self.bn1 = nn.BatchNorm2d(planes)
         self.relu = nn.ReLU(inplace=True)
         #self.conv2 = conv3x3(planes, planes)
-        self.se = SELayer(planes, reduction=16)
+        self.se = SELayer(planes, reduction=4)
         self.bn2 = nn.BatchNorm2d(planes)
         self.downsample = downsample
         self.stride = stride
