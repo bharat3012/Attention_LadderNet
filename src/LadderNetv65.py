@@ -226,7 +226,7 @@ class LadderNetv6(nn.Module):
     def __init__(self,layers=3,filters=16,num_classes=2,inplanes=3):
         super().__init__()
         self.initial_block = Initial_LadderBlock(planes=filters,layers=layers,inplanes=inplanes)
-        #self.middle_block = LadderBlock(planes=filters,layers=layers)
+        self.middle_block = LadderBlock(planes=filters,layers=layers)
         self.final_block = Final_LadderBlock(planes=filters,layers=layers)
         self.final = nn.Conv2d(in_channels=filters,out_channels=num_classes,kernel_size=1)
 
