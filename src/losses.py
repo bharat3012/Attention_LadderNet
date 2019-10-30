@@ -27,7 +27,7 @@ class LossMulti:
         self.num_classes = num_classes
 
     def __call__(self, outputs, targets):
-        output = self.logsoftmax(outputs)
+        output = self.logsoftmax(outputs, dim =1)
         loss = self.nll_loss(output, targets)
 
         eps=1e-7        
