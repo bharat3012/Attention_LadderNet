@@ -234,7 +234,7 @@ class LadderNetv6(nn.Module):
 
         out = self.initial_block(x)
 
-        #out = self.middle_block(out)
+        out = self.middle_block(out)
         out = self.final_block(out)
 
         out = self.final(out)
