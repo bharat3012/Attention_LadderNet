@@ -32,11 +32,10 @@ from tqdm import tqdm
 
 import random
 
-if opt.manualSeed is None:
-    opt.manualSeed = random.randint(1, 10000)
-print("Random Seed: ", opt.manualSeed)
-random.seed(opt.manualSeed)
-torch.manual_seed(opt.manualSeed)
+
+print("Random Seed: ", 13)
+random.seed(13)
+torch.manual_seed(13)
 
 def count_parameters(model):
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
