@@ -79,7 +79,7 @@ print("Total number of parameters: "+str(count_parameters(net)))
 
 check_path = 'LadderNetv65_layer_%d_filter_%d.pt7'% (layers,filters) #'UNet16.pt7'#'UNet_Resnet101.pt7'
 
-resume = True
+resume = False
 
 criterion = LossMulti(jaccard_weight=0)
 #criterion = CrossEntropy2d()
