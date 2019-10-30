@@ -2,7 +2,7 @@ import torch
 import torch.nn.functional as F
 import torch.nn as nn
 
-drop = 0.25
+drop = 0.3
 
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""
@@ -226,7 +226,7 @@ class LadderNetv6(nn.Module):
     def __init__(self,layers=3,filters=16,num_classes=2,inplanes=3):
         super().__init__()
         self.initial_block = Initial_LadderBlock(planes=filters,layers=layers,inplanes=inplanes)
-        self.middle_block = LadderBlock(planes=filters,layers=layers)
+        #self.middle_block = LadderBlock(planes=filters,layers=layers)
         self.final_block = Final_LadderBlock(planes=filters,layers=layers)
         self.final = nn.Conv2d(in_channels=filters,out_channels=num_classes,kernel_size=1)
 
@@ -234,7 +234,7 @@ class LadderNetv6(nn.Module):
 
         out = self.initial_block(x)
 
-        out = self.middle_block(out)
+        #out = self.middle_block(out)
         out = self.final_block(out)
 
         out = self.final(out)
