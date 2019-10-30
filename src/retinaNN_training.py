@@ -92,7 +92,7 @@ optimizer = optim.Adam(net.parameters(),lr=lr_value[0])
 
 
 ##################################################NEW################################
-dataset = ImageFolder(root_path="../../FDRIVE", datasets='Brain',mode ='train')
+dataset = ImageFolder(root_path="../../../cenet_me/instance/dataset", datasets='Brain',mode ='train')
 data_loader = torch.utils.data.DataLoader(
     dataset,
     batch_size=70,
@@ -100,7 +100,7 @@ data_loader = torch.utils.data.DataLoader(
     num_workers=4)
 
 
-valid = ImageFolder(root_path="../../FDRIVE", datasets='Brain', mode = 'valid')
+valid = ImageFolder(root_path="../../../cenet_me/instance/dataset", datasets='Brain', mode = 'valid')
 data_loader_v = torch.utils.data.DataLoader(
     valid,
     batch_size=70,

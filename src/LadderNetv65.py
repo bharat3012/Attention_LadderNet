@@ -1,8 +1,8 @@
 import torch
 import torch.nn.functional as F
 import torch.nn as nn
-
-drop = 0.25
+from torchsummary import summary 
+drop = 0.3
 
 def conv3x3(in_planes, out_planes, stride=1):
     """3x3 convolution with padding"""

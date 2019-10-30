@@ -92,14 +92,14 @@ def randomRotate90(image, mask, u=0.5):
 
 def default_Brain_loader(img_path, mask_path, mode):
     image = Image.open(img_path)
-    image1 = image.resize((256, 256), Image.ANTIALIAS)
+    image1 = image.resize((256, 256), Image.ANTIALIAS).convert('L')
     img = np.array(image1)
     
     Mask = Image.open(mask_path)
     Mask1 = Mask.resize((256, 256), Image.ANTIALIAS).convert('L')
     mask = np.array(Mask1)
 
-    img = np.expand_dims(img, axis=2)
+    #img = np.expand_dims(img, axis=2)
 
     # img = randomHueSaturationValue(img,
     #                                hue_shift_limit=(-30, 30),
@@ -154,7 +154,7 @@ def read_Brain_datasets(root_path, mode):
     for image_name in img_sort_dir:
         
         image_path = os.path.join(image_root, image_name)
-        label_path = os.path.join(gt_root, image_name.replace('training','manual1'))
+        label_path = os.path.join(gt_root, image_name.replace('msp','cc'))
         
         images.append(image_path)
         masks.append(label_path)
