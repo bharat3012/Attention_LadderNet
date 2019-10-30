@@ -79,7 +79,7 @@ print("Total number of parameters: "+str(count_parameters(net)))
 
 check_path = 'LadderNetv65_layer_%d_filter_%d.pt7'% (layers,filters) #'UNet16.pt7'#'UNet_Resnet101.pt7'
 
-resume = False
+resume = True
 
 criterion = LossMulti(jaccard_weight=0)
 #criterion = CrossEntropy2d()
@@ -124,9 +124,9 @@ if device == 'cuda':
     cudnn.benchmark = True
 if resume:
     # Load checkpoint.
-    print('==> Resuming from checkpoint..')
-    assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
-    checkpoint = torch.load('./checkpoint/'+check_path)
+    #print('==> Resuming from checkpoint..')
+    #assert os.path.isdir('checkpoint'), 'Error: no checkpoint directory found!'
+    checkpoint = torch.load('./checkpoint/'+'11LadderNetv65_layer_4_filter_10.pt7')
     net.load_state_dict(checkpoint['net'])
     start_epoch = checkpoint['epoch']
 
